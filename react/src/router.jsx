@@ -1,12 +1,22 @@
 import {createBrowserRouter, Navigate} from "react-router-dom";
-import Dashboard from "./Dashboard.jsx";
-import DefaultLayout from "./components/DefaultLayout";
+
 import GuestLayout from "./components/GuestLayout";
-import Login from "./views/Login";
+import DefaultLayout from "./components/DefaultLayout";
+
+import Signup from "./views/auth/Signup.jsx";
+import Login from "./views/auth/Login.jsx";
+
+import AdminDashboard from "./views/dashboard/AdminDashboard.jsx"
+import DoctorDashboard from "./views/dashboard/DoctorDashboard.jsx"
+import Dashboard from "./views/dashboard/Dashboard.jsx";
+
+import Users from "./views/user/Users.jsx";
+import UserForm from "./views/user/UserForm.jsx";
+
+import Assurances from "./views/assurance/Assurances.jsx";
+import AssuranceForm from "./views/assurance/AssuranceForm.jsx";
+
 import NotFound from "./views/NotFound";
-import Signup from "./views/Signup";
-import Users from "./views/Users";
-import UserForm from "./views/UserForm";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +32,14 @@ const router = createBrowserRouter([
         element: <Dashboard/>
       },
       {
+        path: "/admin-dashboard", // Route vers le tableau de bord de l'administrateur
+        element: <AdminDashboard />,
+      },
+      {
+        path: "/doctor-dashboard", // Route vers le tableau de bord du médecin
+        element: <DoctorDashboard />,
+      },
+      {
         path: '/users',
         element: <Users/>
       },
@@ -32,6 +50,18 @@ const router = createBrowserRouter([
       {
         path: '/users/:id',
         element: <UserForm key="userUpdate" />
+      },
+      {
+        path: '/assurances',
+        element: <Assurances/>
+      },
+      {
+        path: '/assurances/new',
+        element: <AssuranceForm key="assuranceCreate" />
+      },
+      {
+        path: '/assurances/:id',
+        element: <AssuranceForm key="assuranceUpdate" />
       }
     ]
   },

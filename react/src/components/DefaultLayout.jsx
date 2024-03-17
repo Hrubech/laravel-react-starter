@@ -18,7 +18,7 @@ export default function DefaultLayout() {
         setUser({})
         setToken(null)
       })
-  }
+  } 
 
   useEffect(() => {
     axiosClient.get('/user')
@@ -31,6 +31,7 @@ export default function DefaultLayout() {
     <div id="defaultLayout">
       <aside>
         <Link to="/dashboard">Dashboard</Link>
+        <Link to="/assurances">Assurances</Link>
         <Link to="/users">Users</Link>
       </aside>
       <div className="content">
