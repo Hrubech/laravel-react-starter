@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('antecedents', function (Blueprint $table) {
+        Schema::create('type_examens', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('type');
-            $table->foreignId('dossier_medical_id')->constrained('dossier_medicals')->onDelete('cascade');
+            $table->string('service');
+            $table->double('prix')->default(0.0);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('antecedents');
+        Schema::dropIfExists('type_examens');
     }
 };

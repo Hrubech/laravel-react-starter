@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('symptomes', function (Blueprint $table) {
             $table->id();
+            $table->text('observation')->nullable();
+            $table->unsignedBigInteger('consultation_id');
+            $table->foreign('consultation_id')->references('id')->on('consultations')->onDelete('cascade');
             $table->timestamps();
         });
     }

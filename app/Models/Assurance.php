@@ -11,10 +11,10 @@ class Assurance extends Model
     protected $fillable = ['nom', 'description', 'image', 'taux', 'date_creation', 'date_modification'];
 
     // Relations
-    /*public function factures()
+    public function factures()
     {
         return $this->hasMany(Facture::class, 'assurance_id');
-    }*/
+    }
 
     public function patients()
     {

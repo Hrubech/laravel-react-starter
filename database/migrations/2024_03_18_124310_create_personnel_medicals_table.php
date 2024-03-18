@@ -15,7 +15,18 @@ return new class extends Migration
     {
         Schema::create('personnel_medicals', function (Blueprint $table) {
             $table->id();
+            $table->string('nom');
+            $table->string('username');
+            $table->string('prenom');
+            $table->string('sexe');
+            $table->date('date_de_naissance');
+            $table->string('adresse');
+            $table->string('contact');
+            $table->string('email');
+            $table->string('mot_de_passe');
             $table->timestamps();
+            $table->foreignId('role_id')->constrained('roles');
+            $table->foreignId('service_id')->nullable()->constrained('services');
         });
     }
 

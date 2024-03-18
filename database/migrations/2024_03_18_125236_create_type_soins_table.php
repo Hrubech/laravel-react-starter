@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('antecedents', function (Blueprint $table) {
+        Schema::create('type_soins', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('type');
-            $table->foreignId('dossier_medical_id')->constrained('dossier_medicals')->onDelete('cascade');
-            $table->timestamps();
+            $table->double('prix')->default(0.0);
+            $table->timestamps(); // Crée les colonnes `created_at` et `updated_at`
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('antecedents');
+        Schema::dropIfExists('type_soins');
     }
 };

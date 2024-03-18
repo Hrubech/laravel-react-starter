@@ -13,14 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bon_examens', function (Blueprint $table) {
+        Schema::create('rdvs', function (Blueprint $table) {
             $table->id();
-            $table->string('salle')->nullable();
-            $table->text('renseignement_clinique')->nullable(); 
-            $table->foreignId('consultation_id')->constrained('consultations');
+            $table->string('patient');
+            $table->string('contact');
+            $table->string('sexe');
+            $table->dateTime('date');
+            $table->string('heure');
+            $table->string('etat');
+            $table->foreignId('personnel_medical_id')->constrained('personnel_medical');
             $table->foreignId('service_id')->constrained('services');
-            $table->foreignId('dossier_medical_id')->constrained('dossier_medicals');
-            $table->timestamps();
+            $table->timestamps(); 
         });
     }
 
@@ -31,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bon_examens');
+        Schema::dropIfExists('rdvs');
     }
 };

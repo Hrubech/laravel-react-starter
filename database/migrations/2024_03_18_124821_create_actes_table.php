@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('antecedents', function (Blueprint $table) {
+        Schema::create('actes', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->string('type');
-            $table->foreignId('dossier_medical_id')->constrained('dossier_medicals')->onDelete('cascade');
+            $table->text('observation')->nullable();
+            $table->foreignId('personnel_medical_id')->constrained('personnel_medicals');
+            $table->foreignId('hospitalisation_id')->constrained('hospitalisations');
+            $table->foreignId('service_id')->constrained('services');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('antecedents');
+        Schema::dropIfExists('actes');
     }
 };
