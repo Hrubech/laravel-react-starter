@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AssuranceController;
+use App\Http\Controllers\Api\PatientController;
+use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/users', UserController::class);
     Route::apiResource('/assurances', AssuranceController::class);
     Route::get('/assurances/count', [AssuranceController::class, 'count']);
+    Route::apiResource('/patients', PatientController::class);
 });
 
 Route::post('/signup', [AuthController::class, 'signup']);
