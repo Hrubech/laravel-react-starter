@@ -3,18 +3,81 @@
 namespace App\Services;
 
 use App\Models\DossierMedical;
-use Illuminate\Support\Facades\DB;
+use App\Models\Consultation;
+use App\Models\Ordonnance;
+use App\Models\BonExamen;
+use App\Models\Soin;
+use App\Models\Antecedent;
 
 class DossierMedicalService
 {
     public function getAllDossierMedicals()
     {
-        return DossierMedical::orderByDesc('created_at')->get();
+        return DossierMedical::all();
     }
 
     public function getDossierMedicalById($id)
     {
         return DossierMedical::find($id);
+    }
+
+    public function count()
+    {
+        return DossierMedical::count();
+    }
+
+    public function getPatientByDossierMedicalId($id)
+    {
+        $dossierMedical = DossierMedical::find($id);
+        if ($dossierMedical) {
+            return $dossierMedical->patient;
+        }
+        return null;
+    }
+
+    public function getConsultationsByDossierMedicalId($id)
+    {
+        $dossierMedical = DossierMedical::find($id);
+        if ($dossierMedical) {
+            return $dossierMedical->consultations;
+        }
+        return [];
+    }
+
+    public function getOrdonnancesByDossierMedicalId($id)
+    {
+        $dossierMedical = DossierMedical::find($id);
+        if ($dossierMedical) {
+            return $dossierMedical->ordonnances;
+        }
+        return [];
+    }
+
+    public function getBonExamensByDossierMedicalId($id)
+    {
+        $dossierMedical = DossierMedical::find($id);
+        if ($dossierMedical) {
+            return $dossierMedical->bonExamens;
+        }
+        return [];
+    }
+
+    public function getSoinsByDossierMedicalId($id)
+    {
+        $dossierMedical = DossierMedical::find($id);
+        if ($dossierMedical) {
+            return $dossierMedical->soins;
+        }
+        return [];
+    }
+
+    public function getAntecedentsByDossierMedicalId($id)
+    {
+        $dossierMedical = DossierMedical::find($id);
+        if ($dossierMedical) {
+            return $dossierMedical->antecedents;
+        }
+        return [];
     }
 
     public function createDossierMedical($data)
@@ -24,45 +87,21 @@ class DossierMedicalService
 
     public function updateDossierMedical($id, $data)
     {
-        $dossierMedical = DossierMedical::findOrFail($id);
-        $dossierMedical->update($data);
-        return $dossierMedical;
+        $dossierMedical = DossierMedical::find($id);
+        if ($dossierMedical) {
+            $dossierMedical->update($data);
+            return $dossierMedical;
+        }
+        return null;
     }
 
     public function deleteDossierMedical($id)
     {
-        $dossierMedical = DossierMedical::findOrFail($id);
-        $dossierMedical->delete();
-        return true;
-    }
-
-    public function count()
-    {
-        return DossierMedical::count();
-    }
-
-    public function getConsultationsByDossierMedical($dossierMedicalId)
-    {
-        // Votre logique pour récupérer les consultations par le dossier médical
-    }
-
-    public function getOrdonnancesByDossierMedical($dossierMedicalId)
-    {
-        // Votre logique pour récupérer les ordonnances par le dossier médical
-    }
-
-    public function getBonExamensByDossierMedical($dossierMedicalId)
-    {
-        // Votre logique pour récupérer les bons d'examens par le dossier médical
-    }
-
-    public function getAntecedentsByDossierMedical($dossierMedicalId)
-    {
-        // Votre logique pour récupérer les antécédents par le dossier médical
-    }
-
-    public function getSoinsByDossierMedical($dossierMedicalId)
-    {
-        // Votre logique pour récupérer les soins par le dossier médical
+        $dossierMedical = DossierMedical::find($id);
+        if ($dossierMedical) {
+            $dossierMedical->delete();
+            return true;
+        }
+        return false;
     }
 }

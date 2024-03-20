@@ -13,7 +13,7 @@ class Antecedent extends Model
     protected $fillable = ['nom', 'type'];
 
     protected $casts = [ 
-        'role' => AntecedentTypeEnum::class
+        'type' => AntecedentTypeEnum::class
     ];
 
     public function dossierMedical()
