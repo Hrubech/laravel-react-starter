@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Consultation;
 use App\Services\ConsultationService;
+use App\Http\Resources\ConsultationResource;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -17,11 +18,15 @@ class ConsultationController extends Controller
         $this->consultationService = $consultationService;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
-        $consultations = $this->consultationService->getAllConsultations();
-        return response()->json($consultations);
-    }
+        return ConsultationResource::collection(Consultation::query()->orderBy('id', 'asc')->paginate(10));
+    } 
 
     public function count()
     {

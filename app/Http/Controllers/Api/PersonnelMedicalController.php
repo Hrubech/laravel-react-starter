@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\PersonnelMedical;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller; 
 use App\Services\PersonnelMedicalService;
+use App\Http\Resources\PersonnelMedicalResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -17,10 +18,14 @@ class PersonnelMedicalController extends Controller
         $this->personnelMedicalService = $personnelMedicalService;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
-        $personnelMedicals = $this->personnelMedicalService->getAllPersonnelsMedicaux();
-        return response()->json($personnelMedicals);
+        return PersonnelMedicalResource::collection(PersonnelMedical::query()->orderBy('id', 'asc')->get());
     }
 
     /*public function filter(Request $request)

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Examen;
 use App\Services\ExamenService;
+use App\Http\Resources\ExamenResource;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,11 +19,15 @@ class ExamenController extends Controller
         $this->examenService = $examenService;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
-        $examens = $this->examenService->getAllExamens();
-        return response()->json($examens);
-    }
+        return ExamenResource::collection(Examen::query()->orderBy('id', 'asc')->get());
+    } 
 
     public function filter(Request $request)
     {

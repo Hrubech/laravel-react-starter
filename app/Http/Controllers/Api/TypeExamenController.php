@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\TypeExamen;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TypeExamenResource;
 use App\Services\TypeExamenService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -17,10 +18,14 @@ class TypeExamenController extends Controller
         $this->typeExamenService = $typeExamenService;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
-        $typeExamens = $this->typeExamenService->getAllTypeExamens();
-        return response()->json($typeExamens);
+        return TypeExamenResource::collection(TypeExamen::query()->orderBy('id', 'asc')->get());
     }
 
     public function count()

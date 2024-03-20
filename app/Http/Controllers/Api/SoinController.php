@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Soin;
 use App\Services\SoinService;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SoinResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -17,10 +18,14 @@ class SoinController extends Controller
         $this->soinService = $soinService;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
-        $soins = $this->soinService->getAllSoins();
-        return response()->json($soins);
+        return SoinResource::collection(Soin::query()->orderBy('id', 'asc')->get());
     }
 
     /*public function filter(Request $request)

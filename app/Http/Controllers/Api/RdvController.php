@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Rdv;
 use App\Services\RdvService;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RdvResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -17,10 +18,14 @@ class RdvController extends Controller
         $this->rdvService = $rdvService;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
-        $rdvs = $this->rdvService->getAllRdv();
-        return response()->json($rdvs);
+        return RdvResource::collection(Rdv::query()->orderBy('id', 'asc')->get());
     }
 
     /*public function filter(Request $request)

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\DossierMedical;
 use App\Http\Controllers\Controller;
 use App\Services\DossierMedicalService;
+use App\Http\Resources\DossierMedicalResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -17,9 +18,14 @@ class DossierMedicalController extends Controller
         $this->dossierMedicalService = $dossierMedicalService;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
-        return response()->json($this->dossierMedicalService->getAllDossierMedicals());
+        return DossierMedicalResource::collection(DossierMedical::query()->orderBy('id', 'asc')->get());
     }
 
     /*public function filter(Request $request)

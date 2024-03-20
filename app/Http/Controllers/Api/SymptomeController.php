@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Symptome;
 use App\Services\SymptomeService;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SymptomeResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -17,10 +18,14 @@ class SymptomeController extends Controller
         $this->symptomeService = $symptomeService;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
-        $symptomes = $this->symptomeService->getAllSymptomes();
-        return response()->json($symptomes);
+        return SymptomeResource::collection(Symptome::query()->orderBy('id', 'asc')->get());
     }
 
     /*public function filter(Request $request)

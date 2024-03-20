@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Facture;
 use App\Http\Controllers\Controller;
 use App\Services\FactureService;
+use App\Http\Resources\FactureResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -17,10 +18,14 @@ class FactureController extends Controller
         $this->factureService = $factureService;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
-        $factures = $this->factureService->getAllFactures();
-        return response()->json($factures);
+        return FactureResource::collection(Facture::query()->orderBy('id', 'asc')->get());
     }
 
     public function filter(Request $request)

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\TypeSoin;
 use App\Services\TypeSoinService;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TypeSoinResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -17,10 +18,14 @@ class TypeSoinController extends Controller
         $this->typeSoinService = $typeSoinService;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
-        $typeSoins = $this->typeSoinService->getAllTypeSoins();
-        return response()->json($typeSoins);
+        return TypeSoinResource::collection(TypeSoin::query()->orderBy('id', 'asc')->get());
     }
 
     public function count()

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Hospitalisation;
 use App\Http\Controllers\Controller;
 use App\Services\HospitalisationService;
+use App\Http\Resources\HospitalisationResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -17,10 +18,14 @@ class HospitalisationController extends Controller
         $this->hospitalisationService = $hospitalisationService;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
-        $hospitalisations = $this->hospitalisationService->getAllHospitalisations();
-        return response()->json($hospitalisations);
+        return HospitalisationResource::collection(Hospitalisation::query()->orderBy('id', 'asc')->get());
     }
 
     public function filter(Request $request)

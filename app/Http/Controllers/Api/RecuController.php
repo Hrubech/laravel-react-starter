@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Recu;
 use App\Services\RecuService;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RecuResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -17,10 +18,14 @@ class RecuController extends Controller
         $this->recuService = $recuService;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
-        $recus = $this->recuService->getAllRecus();
-        return response()->json($recus);
+        return RecuResource::collection(Recu::query()->orderBy('id', 'asc')->get());
     }
 
     /*public function filter(Request $request)

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Prescription;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PrescriptionResource;
 use App\Services\PrescriptionService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -17,10 +18,14 @@ class PrescriptionController extends Controller
         $this->prescriptionService = $prescriptionService;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
-        $prescriptions = $this->prescriptionService->getAllPrescriptions();
-        return response()->json($prescriptions);
+        return PrescriptionResource::collection(Prescription::query()->orderBy('id', 'asc')->get());
     }
 
     /*public function filter(Request $request)

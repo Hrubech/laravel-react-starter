@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Service;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ServiceResource;
 use App\Services\ServiceService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -17,10 +18,14 @@ class ServiceController extends Controller
         $this->serviceService = $serviceService;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
-        $services = $this->serviceService->getAllServices();
-        return response()->json($services);
+        return ServiceResource::collection(Service::query()->orderBy('id', 'asc')->get());
     }
 
     /*public function filter(Request $request)

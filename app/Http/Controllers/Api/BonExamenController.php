@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\BonExamen;
 use App\Services\BonExamenService;
+use App\Http\Resources\BonExamenResource;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -17,10 +18,14 @@ class BonExamenController extends Controller
         $this->bonExamenService = $bonExamenService;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
-        $bonExamens = $this->bonExamenService->getAllBonExamens();
-        return response()->json($bonExamens);
+        return BonExamenResource::collection(BonExamen::query()->orderBy('id', 'asc')->get());
     }
 
     public function getBonExamensByFilters(Request $request)

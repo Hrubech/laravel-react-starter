@@ -9,7 +9,7 @@ class BonExamenService
 {
     public function getAllBonExamens()
     {
-        return BonExamen::orderByDesc('dateCreation')->get();
+        return BonExamen::orderByDesc('created_at')->get();
     }
 
     public function getBonExamensByFilters(array $filters)

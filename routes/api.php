@@ -21,10 +21,9 @@ use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\SoinController;
 use App\Http\Controllers\Api\SymptomeController;
 use App\Http\Controllers\Api\TypeExamenController;
-use App\Http\Controllers\Api\TypeSoinController;
+use App\Http\Controllers\Api\TypeSoinController; 
 use App\Http\Controllers\Api\UserController;
-use App\Models\DossierMedical;
-use App\Models\Patient;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -66,7 +65,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/soins', SoinController::class);
     Route::apiResource('/symptomes', SymptomeController::class);
     Route::apiResource('/typeexamens', TypeExamenController::class);
-    Route::apiResource('/typesoins', TypeSoinController::class);
+    Route::apiResource('/typesoins', TypeSoinController::class); 
     Route::apiResource('/users', UserController::class);   
 });
 

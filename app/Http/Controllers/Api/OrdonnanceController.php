@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Ordonnance;
 use App\Http\Controllers\Controller;
 use App\Services\OrdonnanceService;
+use App\Http\Resources\OrdonnanceResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -17,10 +18,14 @@ class OrdonnanceController extends Controller
         $this->ordonnanceService = $ordonnanceService;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
-        $ordonnances = $this->ordonnanceService->getAllOrdonnances();
-        return response()->json($ordonnances);
+        return OrdonnanceResource::collection(Ordonnance::query()->orderBy('id', 'asc')->get());
     }
 
     public function filter(Request $request)
